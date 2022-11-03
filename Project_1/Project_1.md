@@ -27,9 +27,12 @@ In this step, I basically installed a Database Management System (DBMS) to be ab
 
 Again, I used ‘apt’ to acquire and install mysql software:  
 `$ sudo apt install mysql-server`   
-Installed successfully ans I logged in   
-`$ sudo mysql` 
-![mysql_installed](./images/mysql_installed.jpg)
+Installed successfully and I logged in using the command below:
+
+`$ sudo mysql`  
+
+![mysql_installed](./images/mysql_installed.jpg)    
+
 I had to further secure mysql by running the interactive script below to effect password changes for root user, etc.    
 `$ sudo mysql_secure_installation`
 
@@ -39,8 +42,11 @@ I had to further secure mysql by running the interactive script below to effect 
  In addition to the php package, I insatlled *php-mysql*, a PHP module that allows PHP to communicate with MySQL-based databases and *libapache2-mod-php* to enable Apache to handle PHP files.     
 To install these 3 packages at once, run:
 `sudo apt install php libapache2-mod-php php-mysql`     
-confirm installation with the below script;     
-`php -v`
+
+confirm installation with the below script;  
+
+`php -v`    
+
 ![php_installed](./images/php_version_installed.jpg)
 
 At this point, my LAMP stack is completely installed and fully operational.
@@ -58,9 +64,11 @@ I created a domain called *projectlamp*
 Then assigned ownership with the following script;      
 ` sudo chown -R $USER:$USER /var/www/projectlamp`       
 Then created and opened a new configuration file in Apache’s sites-available directory using the vi editor  
-This creates a blank file. Pressing "i" on keyboard to enter insert mode. Then paste the following configuration into the file.
-`sudo vi /etc/apache2/sites-available/projectlamp.conf`
-![php_installed](./images/vi_configuration_file.jpg)    
+This creates a blank file. Pressing "i" on keyboard to enter insert mode. Then paste the following configuration into the file.     
+`sudo vi /etc/apache2/sites-available/projectlamp.conf`     
+
+![php_installed](./images/vi_configuration_file.jpg) 
+
 Save the file afterwards and confirm that it is listed under the host folder.
 
 I used the ls command to show the new file in the sites-available directory - 
