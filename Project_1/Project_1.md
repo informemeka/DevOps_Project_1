@@ -86,5 +86,63 @@ With no errors, I restarted Apache with the following command:
 Now that the new website is active, but the web root /var/www/projectlamp is still empty. I had to create an index.html file in that location so that we can test that the virtual host works as expected:  
 `sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html`
 
-![index_html](./images/index_html_file.jpg)
+![index_html](./images/index_html_file.jpg)   
 
+The result below shows success and this can stand as my temporary landing page;
+
+![web_site](./images/hello_landing_page.jpg)
+
+
+**STEP 5 — ENABLE PHP ON THE WEBSITE**
+
+With the default DirectoryIndex settings on Apache, a file named index.html will always take precedence over an index.php file. This is useful for setting up maintenance pages in PHP applications.
+
+To change this behavior, I edited the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive:
+
+`sudo vi /etc/apache2/mods-enabled/dir.conf`    
+and replacing the file contents with    
+`<IfModule mod_dir.c>
+        #Change this:
+        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+        #To this:
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>`
+
+After saving and closing the file, I reloaded Apache so the changes take effect:
+
+`sudo systemctl reload apache2`
+
+Finally, I created a PHP script to test that PHP is correctly installed and configured on my server.
+
+Create a PHP test script to confirm that Apache is able to handle and process requests for PHP files.
+
+Create a new file in the /var/www/projectlamp directory called index.php
+
+`vi /var/www/projectlamp/index.php`
+
+And input the text below into the file:     
+
+*<?php
+phpinfo();*
+
+Then we save and close the file.
+
+And then refresh the webpage open on the web browser, to see something like this.
+
+![php_web](./images/php_web_page.jpg)       
+
+This page provides information about your server from the perspective of PHP. It is useful for debugging and to ensure that your settings are being applied correctly.
+
+My PHP installation is working as expected.
+
+But it’s best to remove the file you created as it contains sensitive information about your PHP environment -and your Ubuntu server. I used rm to do so:
+
+`sudo rm /var/www/projectlamp/index.php`
+
+You can confirm deleteion by inspecting the projectlamp directory:
+
+![delete_php_file](./images/confirm_php_file_delete.jpg)
+
+**CONCLUSION**
+
+I have been able to complete project 1 - Implementing Web Stack (LAMP) in AWS EC2 instance
